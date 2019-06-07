@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QrReading.QrMainActivity">
+    tools:context="pack.clap.qr_reading.QrMainActivity">
 
     <fragment
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment"
-        android:name="pack.clap.QrReading.CustomArFragment"/>
-
+        android:name="pack.clap.qr_reading.CustomArFragment"
+    />
+    <!--android:name="pack.clap.qr_reading.CustomArFragment"-->
 </android.support.constraint.ConstraintLayout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TrapClap</string>
+    <string name="qr_activity">Scannez Votre Environnement</string>
+    <string name="model1">model.sfb</string>
 </resources>
