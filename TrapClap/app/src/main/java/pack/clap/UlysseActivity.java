@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package TrapMain;
+package pack.clap;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -45,8 +45,8 @@ import com.google.ar.sceneform.ux.ArFragment;
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
  */
-public class MainActivity extends AppCompatActivity {
-  private static final String TAG = MainActivity.class.getSimpleName();
+public class UlysseActivity extends AppCompatActivity {
+  private static final String TAG = UlysseActivity.class.getSimpleName();
   private static final double MIN_OPENGL_VERSION = 3.0;
 
   private ArFragment arFragment;
