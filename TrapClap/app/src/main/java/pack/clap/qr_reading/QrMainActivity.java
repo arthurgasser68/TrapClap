@@ -42,6 +42,7 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.qrcode1);
         AugmentedImageDatabase augmentedImageDatabase = new AugmentedImageDatabase(session);
         augmentedImageDatabase.addImage("QR1", bitmap1);
+
         config.setAugmentedImageDatabase(augmentedImageDatabase);
 
     }
