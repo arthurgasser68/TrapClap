@@ -15,5 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/qr_activity" />
+
+        <Button
+            android:id="@+id/ulysseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ulysse"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

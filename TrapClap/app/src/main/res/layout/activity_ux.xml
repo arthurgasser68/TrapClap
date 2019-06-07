@@ -13,6 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<resources>
-  <style name="AppTheme" parent="Theme.AppCompat.Light"/>
-</resources>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UlysseActivity">
+
+  <fragment android:name="com.google.ar.sceneform.ux.ArFragment"
+      android:id="@+id/ux_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+</FrameLayout>

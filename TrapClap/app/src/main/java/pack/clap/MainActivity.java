@@ -13,6 +13,7 @@ import pack.clap.qr_reading.QrMainActivity;
 public class MainActivity extends AppCompatActivity {
     //Acceuil
     Button qrButton;
+    Button ulysseButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), QrMainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        this.ulysseButton=findViewById(R.id.ulysseButton);
+        ulysseButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getApplicationContext(), UlysseActivity.class);
                 startActivity(intent);
                 finish();
             }
