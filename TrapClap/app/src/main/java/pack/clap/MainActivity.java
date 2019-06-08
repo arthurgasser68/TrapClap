@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
-
-import pack.clap.qr_reading.QrMainActivity;
-
 public class MainActivity extends AppCompatActivity {
     //Acceuil
     Button qrButton;
@@ -35,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent= new Intent(getApplicationContext(), UlysseActivity.class);
                 startActivity(intent);
                 finish();
+
             }
         });
     }

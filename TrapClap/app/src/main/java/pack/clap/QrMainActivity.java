@@ -1,7 +1,8 @@
-package pack.clap.qr_reading;
+package pack.clap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Interpolator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,15 @@ import com.google.ar.sceneform.ux.ArFragment;
 
 import java.util.Collection;
 
+import mainModel.QrCode;
+import mainModel.QrCodes;
+import mainModel.TrapClap;
 import pack.clap.R;
+import pack.clap.qr_reading.CustomArFragment;
 
 
 public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateListener {
+    QrCodes qrCodes;
     public CustomArFragment arFragment;
 
     @Override
@@ -36,12 +42,23 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
 
 
+
     }
 
     public void setupDatabase(Config config, Session session) {
-        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.qrcode1);
-        AugmentedImageDatabase augmentedImageDatabase = new AugmentedImageDatabase(session);
-        augmentedImageDatabase.addImage("QR1", bitmap1);
+
+
+        QrCodes qrCodes=new QrCodes(session);
+        for(int i=0;i<6;i++){
+            getDrawable();
+
+        }
+
+
+
+
+
+
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
 
