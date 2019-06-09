@@ -232,6 +232,7 @@ public class UlysseActivity extends AppCompatActivity {
         objectAnimation.setInterpolator(new LinearInterpolator());
         // Duration in ms of the animation.
         objectAnimation.setDuration(500);
+
         objectAnimation.start();
     }
 }
