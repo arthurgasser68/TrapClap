@@ -21,5 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ulysse"/>
+
+        <Button
+            android:id="@+id/popupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Popup"/>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

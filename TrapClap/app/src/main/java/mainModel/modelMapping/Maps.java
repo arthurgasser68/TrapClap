@@ -3,9 +3,13 @@ package mainModel.modelMapping;
 import com.google.ar.core.Anchor;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Maps {
+
+
+
 
     private Map<Anchor,String> anchorNames; // for path
 
@@ -17,7 +21,8 @@ public class Maps {
     public Maps() {
         this.anchorNames = new HashMap<Anchor,String>();
         this.anchorObject = new HashMap<Anchor,String>();
-        this.g = new Graph(250);
+        //this.g = new Graph(250);
+        // creer ici la map finale
     }
 
     public Map<Anchor, String> getAnchorNames() {
