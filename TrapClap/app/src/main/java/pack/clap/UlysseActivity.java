@@ -19,12 +19,14 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
@@ -233,5 +235,17 @@ public class UlysseActivity extends AppCompatActivity {
         // Duration in ms of the animation.
         objectAnimation.setDuration(500);
         objectAnimation.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return true;
     }
 }
