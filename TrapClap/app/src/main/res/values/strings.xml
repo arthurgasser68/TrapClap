@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright 2018 Google LLC.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,5 +15,7 @@
 -->
 <resources>
     <string name="app_name">TrapClap</string>
-    <string name="default_name">Default</string>
+    <string name="qr_activity">Scannez Votre Environnement</string>
+    <string name="ulysse">Ulysse Activity</string>
+    <string name="model1">model.sfb</string>
 </resources>

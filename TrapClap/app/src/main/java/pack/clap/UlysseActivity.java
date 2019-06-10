@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package TrapMain;
+package pack.clap;
 
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
@@ -47,27 +42,19 @@ import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ShapeFactory;
-import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
  */
-public class MainActivity extends AppCompatActivity {
-  private static final String TAG = MainActivity.class.getSimpleName();
+public class UlysseActivity extends AppCompatActivity {
+  private static final String TAG = UlysseActivity.class.getSimpleName();
   private static final double MIN_OPENGL_VERSION = 3.0;
 
   private ArFragment arFragment;
-  private ArFragment arFragment2;
   private ModelRenderable andyRenderable;
-  private ViewRenderable textRenderable;
   private Node startNode;
   private Node andy;
-  private Node text;
   private Node endNode;
   private Node testNode;
   private ObjectAnimator objectAnimation;
@@ -85,17 +72,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     setContentView(R.layout.activity_ux);
+    arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
-
-
-        //arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
-      arFragment2 = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
-
-        startNode=null;
+    startNode=null;
 
     // When you build a Renderable, Sceneform loads its resources in the background while returning
     // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
-   /* ModelRenderable.builder()
+    ModelRenderable.builder()
         .setSource(this, R.raw.andy)
         .build()
         .thenAccept(renderable -> andyRenderable = renderable)
@@ -108,22 +91,7 @@ public class MainActivity extends AppCompatActivity {
               return null;
             });
 
-    arFragment.setOnTapArPlaneListener(this::onPlaneTap);*/
-
-    ViewRenderable.builder()
-              .setView(this,R.layout.activity_text)
-              .build()
-              .thenAccept(renderable -> textRenderable = renderable)
-                .exceptionally(
-                    throwable -> {
-                        Toast toast =
-                                Toast.makeText(this, "Unable to load text renderable", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                        return null;
-                    });
-
-      arFragment2.setOnTapArPlaneListener(this::onPlaneTapText);
+    arFragment.setOnTapArPlaneListener(this::onPlaneTap);
   }
 
   /**
@@ -158,10 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void onPlaneTap(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
 
+
+
+
         if (andyRenderable == null) {
             return;
         }
-
         // Create the Anchor.
 
         int val = motionEvent.getActionMasked();
@@ -185,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Create the end position and start the animation.
             endNode = new AnchorNode(anchor);
-            endNode.setParent(arFragment2.getArSceneView().getScene());
+            endNode.setParent(arFragment.getArSceneView().getScene());
 
             drawLine(testNode,endNode);
 
@@ -267,16 +237,15 @@ public class MainActivity extends AppCompatActivity {
         objectAnimation.start();
     }
 
-    private void onPlaneTapText(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-
-        // Create the Anchor.
-        Anchor anchor = hitResult.createAnchor();
-
-        // Create the starting position.
-        testNode=new AnchorNode(anchor);
-        testNode.setParent(arFragment2.getArSceneView().getScene());
-        text=new Node();
-        text.setParent(testNode);
-        text.setRenderable(textRenderable);
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return true;
     }
 }
