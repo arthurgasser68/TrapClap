@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import java.util.List;
 import mainModel.modelRooms.Rooms;
-import pack.clap.qr_reading.QrMainActivity;
+import pack.clap.QrMainActivity;
 
 public class MainActivity extends AppCompatActivity {
     //Acceuil
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent= new Intent(getApplicationContext(), UlysseActivity.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
