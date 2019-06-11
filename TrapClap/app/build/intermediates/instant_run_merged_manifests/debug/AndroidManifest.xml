@@ -62,12 +62,8 @@
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="pack.clap.qr_reading.QrMainActivity"
+            android:name="pack.clap.QrMainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <meta-data
-            android:name="com.google.ar.core"
-            android:value="required" />
         <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
         <meta-data
             android:name="com.google.ar.core.min_apk_version"

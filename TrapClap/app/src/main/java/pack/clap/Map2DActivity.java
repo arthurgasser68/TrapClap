@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import mainModel.modelRooms.Rooms;
-import pack.clap.qr_reading.QrMainActivity;
+import pack.clap.QrMainActivity;
 
 public class Map2DActivity extends AppCompatActivity {
 
