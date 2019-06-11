@@ -3,6 +3,7 @@ package pack.clap;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -27,10 +32,13 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import mainModel.QrCode;
 import mainModel.QrCodes;
 
+import mainModel.modelRooms.Rooms;
 import pack.clap.qr_reading.CustomArFragment;
 
 
@@ -40,6 +48,7 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
     private static final double MIN_OPENGL_VERSION = 3.0;
     QrCodes qrCodes;
     public CustomArFragment arFragment;
+    private Button seek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,56 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
 
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
+
+        Rooms rooms = new Rooms();
+        List<Rooms> roomsList=rooms.buildRoom();
+        String[] Rooms = new String[55];
+        Rooms[0]="Destination...";
+        Rooms[1]="Aucune";
+        Rooms[2]="Visite guidée";
+        int i=3;
+        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
+        {
+            Rooms r = it.next();
+            Rooms[i]=r.getName();
+            i++;
+        }
+
+        Spinner list = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        list.setAdapter(adapter);
+
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
+
+        this.seek=(Button)findViewById(R.id.go);
+        this.seek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = list.getSelectedItemPosition();
+                if(index>2) global.setRoom(roomsList.get(index-3).getName());
+                else
+                {
+                    if(index==1)
+                    {
+                        global.setRoom(null); //Retour
+                        Intent intent= new Intent(getApplicationContext(), QrMainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else
+                    {
+                        if(index==2) global.setRoom("Visite guidée"); //Code visite guidée
+                    }
+                }
+                if(index!=0&&index!=1)
+                {
+                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
 
 
     }
