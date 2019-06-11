@@ -59,12 +59,9 @@ public class UlysseActivity extends AppCompatActivity {
   private ModelRenderable model;
 
   @Override
-  @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
-  // CompletableFuture requires api level 24
-  // FutureReturnValueIgnored is not valid
+
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     if (!checkIsSupportedDeviceOrFinish(this)) {
       return;
     }
@@ -74,8 +71,6 @@ public class UlysseActivity extends AppCompatActivity {
 
     startNode=null;
 
-    // When you build a Renderable, Sceneform loads its resources in the background while returning
-    // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
     ModelRenderable.builder()
         .setSource(this, R.raw.andy)
         .build()
@@ -92,14 +87,6 @@ public class UlysseActivity extends AppCompatActivity {
     arFragment.setOnTapArPlaneListener(this::onPlaneTap);
   }
 
-  /**
-   * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
-   * on this device.
-   *
-   * <p>Sceneform requires Android N on the device as well as OpenGL 3.0 capabilities.
-   *
-   * <p>Finishes the activity if Sceneform can not run
-   */
   public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
     if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
       Log.e(TAG, "Sceneform requires Android N or later");
@@ -123,9 +110,6 @@ public class UlysseActivity extends AppCompatActivity {
 
 
     private void onPlaneTap(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-
-
-
 
         if (andyRenderable == null) {
             return;
@@ -218,19 +202,14 @@ public class UlysseActivity extends AppCompatActivity {
         objectAnimation.setAutoCancel(true);
         objectAnimation.setTarget(andy);
 
-        // All the positions should be world positions
-        // The first position is the start, and the second is the end.
         objectAnimation.setObjectValues(andy.getWorldPosition(), endNode.getWorldPosition());
 
-        // Use setWorldPosition to position andy.
         objectAnimation.setPropertyName("worldPosition");
 
-        // The Vector3Evaluator is used to evaluator 2 vector3 and return the next
-        // vector3.  The default is to use lerp.
         objectAnimation.setEvaluator(new Vector3Evaluator());
-        // This makes the animation linear (smooth and uniform).
+
         objectAnimation.setInterpolator(new LinearInterpolator());
-        // Duration in ms of the animation.
+
         objectAnimation.setDuration(500);
         objectAnimation.start();
     }

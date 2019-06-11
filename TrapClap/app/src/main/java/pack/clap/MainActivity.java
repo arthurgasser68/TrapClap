@@ -11,7 +11,7 @@ import android.widget.Button;
 import pack.clap.qr_reading.QrMainActivity;
 
 public class MainActivity extends AppCompatActivity {
-    //Acceuil
+
     Button qrButton;
     Button ulysseButton;
     @Override
