@@ -20,4 +20,5 @@
 
 
     <string name="model1">model.sfb</string>
+    <string name="spinner_name">Destinations</string>
 </resources>

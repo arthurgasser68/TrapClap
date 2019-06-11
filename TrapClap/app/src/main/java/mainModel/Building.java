@@ -1,6 +1,7 @@
 package mainModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mainModel.modelMapping.Maps;
@@ -41,6 +42,7 @@ public class Building {
     private Map<QrCode, Rooms> rLink;
     private Object3D obj;
     private Maps maps;
+    private List<Rooms> roomsList;
 
     private Building()
     {
@@ -50,6 +52,8 @@ public class Building {
         this.obj=new Object3D();
         this.maps=new Maps();
         // creer la maps ici à l'aide d'une fonction dans la classe Maps
+        Rooms rooms = new Rooms();
+        this.roomsList=rooms.buildRoom();
 
     }
 
@@ -61,7 +65,4 @@ public class Building {
         }
         return INSTANCE;
     }
-
-
-
 }
