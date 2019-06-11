@@ -141,6 +141,11 @@ public class Graph {
         return edges;
     }
 
+    public LinkedList<Graph.Vertex> addVertex(LinkedList<Graph.Vertex> a,int id,String name){
+        a.add(new Vertex(""+id, name));
+        return a;
+    }
+
     public Graph(){
         nodes = new ArrayList<Vertex>();
         edges = new ArrayList<Edge>();
