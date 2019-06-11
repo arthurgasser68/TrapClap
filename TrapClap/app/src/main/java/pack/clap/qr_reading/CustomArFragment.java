@@ -5,6 +5,8 @@ import com.google.ar.core.Config;
 import com.google.ar.core.Session;
 import com.google.ar.sceneform.ux.ArFragment;
 
+import pack.clap.QrMainActivity;
+
 public class CustomArFragment extends ArFragment {
 
     @Override
@@ -17,6 +19,4 @@ public class CustomArFragment extends ArFragment {
         ((QrMainActivity) getActivity()).setupDatabase(config, session);
         return config;
     }
-
-
 }
