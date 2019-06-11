@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import pack.clap.QrMainActivity;
+import mainModel.Building;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -13,6 +13,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        Building.getInstance();
 
         Runnable runnable = new Runnable() {
             @Override

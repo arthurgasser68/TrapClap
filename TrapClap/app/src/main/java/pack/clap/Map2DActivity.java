@@ -11,13 +11,14 @@ import android.widget.Spinner;
 import java.util.Iterator;
 import java.util.List;
 
+import mainModel.Building;
 import mainModel.modelRooms.Rooms;
-import pack.clap.QrMainActivity;
 
 public class Map2DActivity extends AppCompatActivity {
 
     private Button modeButton;
     private Button seek;
+    private List<Rooms> roomsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +26,13 @@ public class Map2DActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map2_d);
 
         Rooms rooms = new Rooms();
-        List<Rooms> roomsList=rooms.buildRoom();
-        String[] Rooms = new String[55];
+        this.roomsList= Building.getINSTANCE().getRoomsList();
+        String[] Rooms = new String[54];
         Rooms[0]="Destination...";
         Rooms[1]="Aucune";
         Rooms[2]="Visite guidée";
         int i=3;
-        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
+        for(Iterator<Rooms> it = this.roomsList.iterator(); it.hasNext();)
         {
             Rooms r = it.next();
             Rooms[i]=r.getName();

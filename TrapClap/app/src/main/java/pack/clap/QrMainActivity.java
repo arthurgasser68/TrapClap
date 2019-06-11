@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -34,7 +35,9 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import mainModel.Building;
 import mainModel.QrCode;
 import mainModel.QrCodes;
 
@@ -46,11 +49,10 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
 
     private static final String TAG = QrMainActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    QrCodes qrCodes;
+    public static QrCodes qrCodes=null;
     public CustomArFragment arFragment;
     private Button seek;
     private List<Rooms> roomsList;
-    private boolean pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,8 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
 
-        this.pop=false;
-
-        Rooms rooms = new Rooms();
-        this.roomsList=rooms.buildRoom();
-        String[] Rooms = new String[55];
+        this.roomsList= Building.getINSTANCE().getRoomsList();
+        String[] Rooms = new String[54];
         Rooms[0]="Destination...";
         Rooms[1]="Aucune";
         Rooms[2]="Visite guidée";
@@ -192,58 +191,27 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         qrCodes.add(new QrCode("vestiaire",BitmapFactory.decodeResource(getResources(),R.drawable.vestiaire),48));
         qrCodes.add(new QrCode("weber", BitmapFactory.decodeResource(getResources(),R.drawable.weber),49));
         qrCodes.add(new QrCode("weisser",BitmapFactory.decodeResource(getResources(),R.drawable.weisser),50));
-        config.setAugmentedImageDatabase(qrCodes.getQrCodes());
     }
 
     @Override
     public void onUpdate(FrameTime frameTime) {
 
-        if(!this.pop)
-        {
-            Frame frame = arFragment.getArSceneView().getArFrame();
-            for (Plane plane : frame.getUpdatedTrackables(Plane.class)) {
-                if (plane.getTrackingState() == TrackingState.TRACKING) {
-                    arFragment.getPlaneDiscoveryController().hide();
-                }
+        Frame frame = arFragment.getArSceneView().getArFrame();
+        for (Plane plane : frame.getUpdatedTrackables(Plane.class)) {
+            if (plane.getTrackingState() == TrackingState.TRACKING) {
+                arFragment.getPlaneDiscoveryController().hide();
             }
-            Collection<AugmentedImage> images = frame.getUpdatedTrackables(AugmentedImage.class);
-            for (AugmentedImage augmentedImage : images) {
-                if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                /*switch (augmentedImage.getName()){
-                    case "ambs":
-                        Anchor anchor = augmentedImage.createAnchor(augmentedImage.getCenterPose());
-                        createModel(anchor,getString(R.string.model1));
-                }*/
-                    this.pop=true;
-                }
+        }
+        Collection<AugmentedImage> images = frame.getUpdatedTrackables(AugmentedImage.class);
+        for (AugmentedImage augmentedImage : images) {
+            if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
+                GlobalActivity global = (GlobalActivity) getApplicationContext();
+                global.setRoomId(Integer.parseInt(augmentedImage.getName()));
+                Intent intent= new Intent(getApplicationContext(), InformationActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
     }
 
-    private void createModel(Anchor anchor, String model) {
-        ModelRenderable.builder()
-                .setSource(this, Uri.parse(getString(R.string.model1)))
-                .build()
-                .thenAccept(modelRenderable -> placeModel(modelRenderable, anchor));
-    }
-
-    public void createPopUp(int index)
-    {
-        AlertDialog.Builder popupEdt = new AlertDialog.Builder(getApplicationContext(),R.style.MyDialogTheme);
-        popupEdt.setMessage(this.roomsList.get(0).toString());
-        popupEdt.show();
-        try {
-            wait(5000);
-            this.pop=false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void placeModel(ModelRenderable modelRenderable, Anchor anchor) {
-        AnchorNode anchorNode = new AnchorNode(anchor);
-        anchorNode.setRenderable(modelRenderable);
-        arFragment.getArSceneView().getScene().addChild(anchorNode);
-    }
 }
