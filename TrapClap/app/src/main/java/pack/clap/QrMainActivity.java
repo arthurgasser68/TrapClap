@@ -3,12 +3,14 @@ package pack.clap;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +51,8 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
     QrCodes qrCodes;
     public CustomArFragment arFragment;
     private Button seek;
+    private List<Rooms> roomsList;
+    private boolean pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +66,10 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
 
+        this.pop=false;
+
         Rooms rooms = new Rooms();
-        List<Rooms> roomsList=rooms.buildRoom();
+        this.roomsList=rooms.buildRoom();
         String[] Rooms = new String[55];
         Rooms[0]="Destination...";
         Rooms[1]="Aucune";
@@ -191,43 +197,52 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         qrCodes.add(new QrCode("weber", BitmapFactory.decodeResource(getResources(),R.drawable.weber),49));
         qrCodes.add(new QrCode("weisser",BitmapFactory.decodeResource(getResources(),R.drawable.weisser),50));
         config.setAugmentedImageDatabase(qrCodes.getQrCodes());
-
     }
-
 
     @Override
     public void onUpdate(FrameTime frameTime) {
 
-
-        Frame frame = arFragment.getArSceneView().getArFrame();
-        for (Plane plane : frame.getUpdatedTrackables(Plane.class)) {
-            if (plane.getTrackingState() == TrackingState.TRACKING) {
-                arFragment.getPlaneDiscoveryController().hide();
-
+        if(!this.pop)
+        {
+            Frame frame = arFragment.getArSceneView().getArFrame();
+            for (Plane plane : frame.getUpdatedTrackables(Plane.class)) {
+                if (plane.getTrackingState() == TrackingState.TRACKING) {
+                    arFragment.getPlaneDiscoveryController().hide();
+                }
             }
-        }
-        Collection<AugmentedImage> images = frame.getUpdatedTrackables(AugmentedImage.class);
-        for (AugmentedImage augmentedImage : images) {
-            if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                switch (augmentedImage.getName()){
+            Collection<AugmentedImage> images = frame.getUpdatedTrackables(AugmentedImage.class);
+            for (AugmentedImage augmentedImage : images) {
+                if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
+                /*switch (augmentedImage.getName()){
                     case "ambs":
                         Anchor anchor = augmentedImage.createAnchor(augmentedImage.getCenterPose());
                         createModel(anchor,getString(R.string.model1));
+                }*/
+                    this.pop=true;
                 }
-
-
-
             }
         }
-
     }
-
 
     private void createModel(Anchor anchor, String model) {
         ModelRenderable.builder()
                 .setSource(this, Uri.parse(getString(R.string.model1)))
                 .build()
                 .thenAccept(modelRenderable -> placeModel(modelRenderable, anchor));
+    }
+
+    public void createPopUp(int index)
+    {
+        AlertDialog.Builder popupEdt = new AlertDialog.Builder(getApplicationContext(),R.style.MyDialogTheme);
+        popupEdt.setMessage(this.roomsList.get(0).toString());
+        popupEdt.show();
+        try {
+            wait(5000);
+            this.pop=false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void placeModel(ModelRenderable modelRenderable, Anchor anchor) {
