@@ -133,6 +133,80 @@ public class Graph {
         this.edges = new ArrayList<Edge>(g.getEdges());
     }
 
+    public List<Vertex> getNodes() {
+        return nodes;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public Graph(){
+        nodes = new ArrayList<Vertex>();
+        edges = new ArrayList<Edge>();
+        for (int i = 0; i < 40; i++) {
+            Vertex location = new Vertex("Node_" + (i+1), "Node_" + (i+1));
+            nodes.add(location);
+        }
+
+        addLane("Edge_0", 0, 1, 10);
+        addLane("Edge_1", 1, 2, 10);
+        addLane("Edge_2", 2, 3, 10);
+        addLane("Edge_3", 3, 4, 10);
+        addLane("Edge_4", 4, 5, 10);
+        addLane("Edge_5", 5, 6, 10);
+        addLane("Edge_6", 6, 7, 10);
+        addLane("Edge_7", 7, 8, 10);
+        addLane("Edge_8", 8, 9, 10);
+        addLane("Edge_9", 9, 10, 10);
+
+        addLane("Edge_10", 10, 11, 10);
+        addLane("Edge_11", 11, 12, 10);
+        addLane("Edge_12", 12, 13, 10);
+        addLane("Edge_13", 13, 14, 10);
+        addLane("Edge_14", 14, 15, 10);
+        addLane("Edge_15", 15, 16, 10);
+        addLane("Edge_16", 16, 17, 10);
+        addLane("Edge_17", 17, 18, 10);
+        addLane("Edge_18", 18, 19, 10);
+
+        addLane("Edge_19", 10, 20, 10);
+        addLane("Edge_20", 20, 21, 10);
+        addLane("Edge_21", 21, 22, 10);
+        addLane("Edge_22", 22, 23, 10);
+        addLane("Edge_23", 23, 24, 10);
+        addLane("Edge_24", 23, 25, 10);
+        addLane("Edge_25", 25, 26, 10);
+        addLane("Edge_26", 26, 27, 10);
+        addLane("Edge_27", 27, 28, 10);
+
+        addLane("Edge_38", 26, 29, 10);
+        addLane("Edge_39", 24, 26, 22);
+
+
+        addLane("Edge_28", 29, 30, 10);
+        addLane("Edge_29", 29, 31, 10);
+        addLane("Edge_30", 31, 32, 10);
+        addLane("Edge_31", 32, 33, 10);
+        addLane("Edge_32", 33, 34, 10);
+        addLane("Edge_33", 34, 35, 10);
+        addLane("Edge_34", 35, 36, 10);
+        addLane("Edge_35", 36, 37, 10);
+        addLane("Edge_36", 37, 38, 10);
+        addLane("Edge_37", 38, 39, 10);
+
+
+
+    }
+
+    private void addLane(String laneId, int sourceLocNo, int destLocNo,
+                         int duration) {
+        Edge lane = new Edge(laneId+"_1",nodes.get(sourceLocNo), nodes.get(destLocNo), duration );
+        edges.add(lane);
+        lane = new Edge(laneId+"_2",nodes.get(destLocNo), nodes.get(sourceLocNo), duration );
+        edges.add(lane);
+    }
+
     public void execute(Vertex source) {
         settledNodes = new HashSet<Vertex>();
         unSettledNodes = new HashSet<Vertex>();

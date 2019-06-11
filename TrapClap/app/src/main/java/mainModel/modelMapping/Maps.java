@@ -3,6 +3,7 @@ package mainModel.modelMapping;
 import com.google.ar.core.Anchor;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,26 @@ public class Maps {
     public Maps() {
         this.anchorNames = new HashMap<Anchor,String>();
         this.anchorObject = new HashMap<Anchor,String>();
-        //this.g = new Graph(250);
+        this.g = new Graph();
         // creer ici la map finale
     }
+
+    public static void main (String[] args){
+        Maps m=new Maps();
+
+
+        System.out.println(m.getPathFromTo(11,31));
+
+
+    }
+
+
+    public LinkedList<Graph.Vertex> getPathFromTo(int start,int target){
+        this.g.execute(this.g.getNodes().get(start-1));
+        return this.g.getPath(this.g.getNodes().get(target -1));
+
+    }
+
 
     public Map<Anchor, String> getAnchorNames() {
         return anchorNames;
