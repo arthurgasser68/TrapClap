@@ -3,8 +3,11 @@ package pack.clap;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.DialogInterface;
 import android.content.Intent;
+=======
+>>>>>>> 5b67602d35394755478590c5d8bc17b5091ae265
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -13,10 +16,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -34,13 +33,10 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import mainModel.QrCode;
 import mainModel.QrCodes;
 
-import mainModel.modelRooms.Rooms;
 import pack.clap.qr_reading.CustomArFragment;
 
 
@@ -50,9 +46,12 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
     private static final double MIN_OPENGL_VERSION = 3.0;
     QrCodes qrCodes;
     public CustomArFragment arFragment;
+<<<<<<< HEAD
     private Button seek;
     private List<Rooms> roomsList;
     private boolean pop;
+=======
+>>>>>>> 5b67602d35394755478590c5d8bc17b5091ae265
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,7 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
 
+<<<<<<< HEAD
         this.pop=false;
 
         Rooms rooms = new Rooms();
@@ -118,6 +118,8 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
             }
         });
 
+=======
+>>>>>>> 5b67602d35394755478590c5d8bc17b5091ae265
 
     }
 

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import pack.clap.QrMainActivity;
+import pack.clap.qr_reading.QrMainActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

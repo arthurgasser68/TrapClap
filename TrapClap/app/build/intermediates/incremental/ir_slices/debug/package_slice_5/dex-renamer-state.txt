@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Tue Jun 11 14:31:15 CEST 2019
+=======
+#Tue Jun 11 09:54:12 CEST 2019
+>>>>>>> 5b67602d35394755478590c5d8bc17b5091ae265
 base.0=D\:\\03 Programmes\\GitHub\\Android_Project\\TrapClap\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\5
 path.0=classes.dex
 renamed.0=classes.dex
