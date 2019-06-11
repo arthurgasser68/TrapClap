@@ -18,4 +18,5 @@
     <string name="qr_activity">Scannez Votre Environnement</string>
     <string name="ulysse">Ulysse Activity</string>
     <string name="model1">model.sfb</string>
+    <string name="spinner_name">Destinations</string>
 </resources>

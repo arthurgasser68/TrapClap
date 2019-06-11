@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="pack.clap.qr_reading.QrMainActivity">
+    tools:context="pack.clap.Map2DActivity">
 
     <LinearLayout
         android:id="@+id/topbar"
@@ -20,18 +20,16 @@
 
         <Button
             android:id="@+id/go"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GO"/>
 
+        <Button
+            android:id="@+id/mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vue 3D"/>
+
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="pack.clap.qr_reading.CustomArFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="700dp"
-        app:layout_constraintTop_toBottomOf="@id/topbar" />
-
-    <!--android:name="pack.clap.qr_reading.CustomArFragment"-->
 </android.support.constraint.ConstraintLayout>

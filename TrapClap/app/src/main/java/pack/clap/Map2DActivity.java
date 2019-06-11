@@ -1,45 +1,28 @@
 package pack.clap;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 
 import java.util.Iterator;
 import java.util.List;
+
 import mainModel.modelRooms.Rooms;
 import pack.clap.qr_reading.QrMainActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class Map2DActivity extends AppCompatActivity {
 
-    private Button ulysseButton;
-    private Button popupButton;
     private Button modeButton;
     private Button seek;
-    private MainActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        this.activity=this;
-
-        this.ulysseButton=findViewById(R.id.ulysseButton);
-        this.ulysseButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(getApplicationContext(), UlysseActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_map2_d);
 
         Rooms rooms = new Rooms();
         List<Rooms> roomsList=rooms.buildRoom();
@@ -59,16 +42,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        this.popupButton=findViewById(R.id.popupButton);
-        this.popupButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder popupEdt = new AlertDialog.Builder(activity,R.style.MyDialogTheme);
-                popupEdt.setMessage(roomsList.get(50).toString());
-                popupEdt.show();
-            }
-        });
 
         GlobalActivity global = (GlobalActivity) getApplicationContext();
 
@@ -94,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(index!=0&&index!=1)
                 {
-                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent= new Intent(getApplicationContext(), Map2DActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -105,15 +78,10 @@ public class MainActivity extends AppCompatActivity {
         this.modeButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getApplicationContext(), Map2DActivity.class);
+                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-        TextView textView=findViewById(R.id.test);
-        GlobalActivity globalActivity = (GlobalActivity) getApplicationContext();
-        textView.setText(globalActivity.getRoom());
-
     }
 }
