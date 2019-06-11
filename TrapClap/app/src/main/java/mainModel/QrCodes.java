@@ -9,13 +9,10 @@ public class QrCodes {
     AugmentedImageDatabase qrCodes;
     public QrCodes(Session session){
         this.qrCodes=new AugmentedImageDatabase(session);
-
-
     }
     public void add(QrCode qrCode){
-        qrCodes.addImage(qrCode.getName(),qrCode.getQrCode());
+        qrCodes.addImage(String.valueOf(qrCode.getId()),qrCode.getQrCode());
     }
-
 
     public AugmentedImageDatabase getQrCodes() {
         return qrCodes;
