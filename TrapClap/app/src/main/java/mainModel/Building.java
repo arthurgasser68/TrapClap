@@ -1,11 +1,13 @@
 package mainModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mainModel.modelMapping.Maps;
 import mainModel.modelRessources.Object3D;
 import mainModel.modelRooms.Rooms;
+import pack.clap.QrMainActivity;
 
 public class Building {
 
@@ -22,9 +24,6 @@ public class Building {
         return tc;
     }
 
-    public Map<QrCode, Rooms> getLinkQrRooms() {
-        return rLink;
-    }
 
     public Object3D getObject3D() {
         return obj;
@@ -38,19 +37,57 @@ public class Building {
     private static Building INSTANCE = null;
 
     private TrapClap tc;
-    private Map<QrCode, Rooms> rLink;
     private Object3D obj;
     private Maps maps;
+    private List<Rooms> roomsList;
+    private QrCodes qrCodes;
 
     private Building()
     {
         this.tc=new TrapClap();
-        this.rLink=new HashMap<>();
-        // fournir la map ici en salle a l'aide d'une fonction
         this.obj=new Object3D();
         this.maps=new Maps();
         // creer la maps ici à l'aide d'une fonction dans la classe Maps
+        Rooms rooms = new Rooms();
+        this.roomsList=rooms.buildRoom();
+        this.qrCodes=null;
+    }
 
+    public TrapClap getTc() {
+        return tc;
+    }
+
+    public void setTc(TrapClap tc) {
+        this.tc = tc;
+    }
+
+    public Object3D getObj() {
+        return obj;
+    }
+
+    public void setObj(Object3D obj) {
+        this.obj = obj;
+    }
+
+    public void setMaps(Maps maps) {
+        this.maps = maps;
+    }
+
+    public List<Rooms> getRoomsList() {
+        return roomsList;
+    }
+
+    public void setRoomsList(List<Rooms> roomsList) {
+        this.roomsList = roomsList;
+    }
+
+    public QrCodes getQrCodes() {
+        return qrCodes;
+    }
+
+    public void setQrCodes(QrCodes qrCodes)
+    {
+        this.qrCodes=qrCodes;
     }
 
     /** Point d'accès pour l'instance unique du singleton */
@@ -61,7 +98,5 @@ public class Building {
         }
         return INSTANCE;
     }
-
-
 
 }

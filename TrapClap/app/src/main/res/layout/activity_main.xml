@@ -3,23 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pack.clap.MainActivity">
 
     <LinearLayout
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/qrButton"
-            android:layout_width="match_parent"
+            android:id="@+id/go"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/qr_activity" />
+            android:text="GO"/>
 
         <Button
-            android:id="@+id/ulysseButton"
-            android:layout_width="match_parent"
+            android:id="@+id/mode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ulysse"/>
+            android:text="Vue 2D"/>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
