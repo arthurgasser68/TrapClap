@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Iterator;
 import java.util.List;
 
 import mainModel.Building;
+import mainModel.modelMapping.Maps;
 import mainModel.modelRooms.Rooms;
 
 public class Map2DActivity extends AppCompatActivity {
@@ -25,26 +27,13 @@ public class Map2DActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2_d);
 
-        Rooms rooms = new Rooms();
-        this.roomsList= Building.getINSTANCE().getRoomsList();
-        String[] Rooms = new String[54];
-        Rooms[0]="Destination...";
-        Rooms[1]="Aucune";
-        Rooms[2]="Visite guidée";
-        int i=3;
-        for(Iterator<Rooms> it = this.roomsList.iterator(); it.hasNext();)
-        {
-            Rooms r = it.next();
-            Rooms[i]=r.getName();
-            i++;
-        }
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
+        this.roomsList=Building.getINSTANCE().getRoomsList();
 
         Spinner list = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,global.createRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         this.seek=(Button)findViewById(R.id.go);
         this.seek.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +73,14 @@ public class Map2DActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        /*Test Map*/
+
+        TextView textView=findViewById(R.id.destination);
+        textView.setText("Vous vous dirigez vers : "+global.getRoom());
+
+        Maps map = new Maps();
+        textView=findViewById(R.id.testMap);
+        textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
     }
 }

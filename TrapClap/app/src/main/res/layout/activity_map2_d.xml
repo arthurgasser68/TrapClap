@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pack.clap.Map2DActivity">
+    tools:context="pack.clap.Map2DActivity"
+    android:orientation="vertical"
+    android:background="@color/color_Blue">
 
     <LinearLayout
         android:id="@+id/topbar"
@@ -22,14 +23,41 @@
             android:id="@+id/go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_boder"
             android:text="GO"/>
 
         <Button
             android:id="@+id/mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_boder"
             android:text="Vue 3D"/>
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Destination"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/testMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TestMap"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="91dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -118,7 +118,7 @@ public class Rooms {
     public String toString()
     {
         StringBuilder tmp = new StringBuilder();
-        tmp.append(this.name+"\n"+this.planning+"\n"+this.info);
+        tmp.append(this.name+" : "+this.planning+"\n"+this.info);
         return tmp.toString();
     }
 

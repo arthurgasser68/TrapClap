@@ -22,7 +22,7 @@ public class Informations {
     public String toString()
     {
         StringBuilder tmp = new StringBuilder();
-        tmp.append("\nInformations\n\n"+this.info);
+        tmp.append("\n"+this.info);
         return tmp.toString();
     }
 

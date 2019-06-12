@@ -4,6 +4,7 @@
     package="pack.clap">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!--
  This tag indicates that this application requires ARCore.  This results in the application
          only being visible in the Google Play Store on devices that support ARCore.
@@ -59,6 +60,7 @@
         <activity
             android:name=".QrMainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <meta-data android:name="com.google.android.ar.API_KEY" android:value="AIzaSyDMOhDDc8-BtMPwC3iNyCZXHzkQf56mKXM"/>
     </application>
 
 </manifest>

@@ -24,7 +24,16 @@ public class InformationActivity extends AppCompatActivity {
         Rooms rooms = new Rooms();
         List<Rooms> roomsList=rooms.buildRoom();
 
-        TextView textView=findViewById(R.id.informations);
+        TextView textView = findViewById(R.id.row1);
+        textView.setText(roomsList.get(global.getRoomId()).getPlanning().getLessons(0).toString());
+        textView = findViewById(R.id.row2);
+        textView.setText(roomsList.get(global.getRoomId()).getPlanning().getLessons(1).toString());
+        textView = findViewById(R.id.row4);
+        textView.setText(roomsList.get(global.getRoomId()).getPlanning().getLessons(3).toString());
+        textView = findViewById(R.id.row5);
+        textView.setText(roomsList.get(global.getRoomId()).getPlanning().getLessons(4).toString());
+
+        textView=findViewById(R.id.informations);
         textView.setText(roomsList.get(global.getRoomId()).toString());
 
         this.returnqr=findViewById(R.id.returnqr);
