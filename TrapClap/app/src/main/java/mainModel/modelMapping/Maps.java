@@ -83,8 +83,6 @@ public class Maps {
 
     public static void main (String[] args){
         Maps m=new Maps();
-
-
         System.out.println( m.getPathFromTo(11,"Weber")  );
     }
 
