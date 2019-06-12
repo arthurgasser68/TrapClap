@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pack.clap.InformationActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Informations"
+        android:textSize="30dp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_margin="20dp"
+        android:id="@+id/informations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Informations"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@id/titleinfo" />
+
+    <Button
+        android:id="@+id/returnqr"
+        android:layout_margin="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        app:layout_constraintTop_toBottomOf="@id/informations" />
+
+</LinearLayout>
