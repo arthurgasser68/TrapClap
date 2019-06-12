@@ -1,7 +1,8 @@
 package pack.clap;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,67 +12,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-import java.util.Iterator;
 import java.util.List;
+
+import mainModel.Building;
+import mainModel.modelMapping.AnchorLibraries;
+import mainModel.modelMapping.Maps;
 import mainModel.modelRooms.Rooms;
-import pack.clap.QrMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button ulysseButton;
-    private Button popupButton;
     private Button modeButton;
     private Button seek;
-    private MainActivity activity;
+    private List<Rooms> roomsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.activity=this;
-
-        this.ulysseButton=findViewById(R.id.ulysseButton);
-        this.ulysseButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(getApplicationContext(), UlysseActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
-
-        Rooms rooms = new Rooms();
-        List<Rooms> roomsList=rooms.buildRoom();
-        String[] Rooms = new String[55];
-        Rooms[0]="Destination...";
-        Rooms[1]="Aucune";
-        Rooms[2]="Visite guidée";
-        int i=3;
-        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
-        {
-            Rooms r = it.next();
-            Rooms[i]=r.getName();
-            i++;
-        }
+        this.roomsList=Building.getINSTANCE().getRoomsList();
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         Spinner list = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,global.createRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        this.popupButton=findViewById(R.id.popupButton);
-        this.popupButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder popupEdt = new AlertDialog.Builder(activity,R.style.MyDialogTheme);
-                popupEdt.setMessage(roomsList.get(50).toString());
-                popupEdt.show();
-            }
-        });
-
-        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         this.seek=(Button)findViewById(R.id.go);
         this.seek.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +76,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView textView=findViewById(R.id.test);
-        GlobalActivity globalActivity = (GlobalActivity) getApplicationContext();
-        textView.setText(globalActivity.getRoom());
+        /*Test Map*/
+
+        TextView textView=findViewById(R.id.destination);
+        textView.setText("Vous vous dirigez vers : "+global.getRoom());
+
+        Maps map = new Maps();
+        textView=findViewById(R.id.testMap);
+        textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.fragment_container);
+        if (frag == null) {
+            frag = new AnchorLibraries();
+            fm.beginTransaction().add(R.id.fragment_container, frag).commit();
+        }
 
     }
 }

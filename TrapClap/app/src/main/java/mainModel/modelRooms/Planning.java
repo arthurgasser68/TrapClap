@@ -40,6 +40,11 @@ public class Planning {
         return this.currentDay;
     }
 
+    public Lessons getLessons(int index)
+    {
+        return this.lessonsList.get(index);
+    }
+
     public String convertDate()
     {
         String day=null;
@@ -76,9 +81,9 @@ public class Planning {
         for(Iterator<Lessons> it = this.lessonsList.iterator(); it.hasNext();)
         {
             Lessons lesson=it.next();
-            if((hour>=lesson.getHour1()&&hour<=lesson.getHour2())||hour<8||hour>18)
+            if((hour>=lesson.getHour1()&&hour<=lesson.getHour2())||(hour<8||hour>18))
             {
-                if(lesson.getLesson()!="Libre"&&lesson.getLesson()!="Pause"&&lesson.getLesson()!="Fermé"&&lesson.getLesson()!="Absent") dispo=false;
+                if(lesson.getLesson()=="Libre"||lesson.getLesson()=="Pause"||lesson.getLesson()=="Fermé"||lesson.getLesson()=="Absent") dispo=false;
             }
         }
         return dispo;
@@ -87,12 +92,12 @@ public class Planning {
     public String toString()
     {
         StringBuilder tmp = new StringBuilder();
-        tmp.append("\nEmploi du temps\n\n");
+        /*tmp.append("\nEmploi du temps\n\n");
         for(Iterator<Lessons> it = this.lessonsList.iterator(); it.hasNext();)
         {
             Lessons lessons =it.next();
             tmp.append(lessons.toString());
-        }
+        }*/
         if(isDispo(this,this.currentHour)) tmp.append("\nActuellement disponible");
         else tmp.append("\nActuellement indisponible");
         return tmp.toString();

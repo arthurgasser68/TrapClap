@@ -27,19 +27,16 @@ public class QrCode {
     public QrCode(String name, Bitmap qrCode, int id){
         this.name=name;
         this.qrCode=qrCode;
-
         this.id=id;
-
-
     }
-
 
     public Bitmap getQrCode() {
         return qrCode;
-
     }
 
     public String getName() {
         return name;
     }
+
+    public int getId(){ return this.id; }
 }

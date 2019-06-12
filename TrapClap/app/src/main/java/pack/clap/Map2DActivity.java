@@ -15,20 +15,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import mainModel.Building;
+import mainModel.modelMapping.Graph;
+import mainModel.modelMapping.Maps;
 import mainModel.modelRooms.Rooms;
-import pack.clap.QrMainActivity;
 
 public class Map2DActivity extends AppCompatActivity {
 
     private Button modeButton;
     private Button seek;
+
     private Map<Integer,Point> link;
+
+    private List<Rooms> roomsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +44,16 @@ public class Map2DActivity extends AppCompatActivity {
 
         link.put(1,new Point(74,15));
         link.put(2,new Point(33,47));
-        link.put(3,new Point(32,13));
-        link.put(4,new Point(24,43));
-        link.put(5,new Point(24,72));
-        link.put(6,new Point(24,86));
+        link.put(3,new Point(32,43));
+        link.put(4,new Point(24,60));
+        link.put(5,new Point(24,80));
+        link.put(6,new Point(24,116));
         link.put(7,new Point(24,140));
         link.put(8,new Point(24,155));
         link.put(9,new Point(24,198));
         link.put(10,new Point(24,244));
-        link.put(11,new Point(36,262));
-        link.put(12,new Point(70,259));
+        link.put(11,new Point(24,277));
+        link.put(12,new Point(70,277));
         link.put(13,new Point(125,277));
         link.put(14,new Point(145,277));
         link.put(15,new Point(171,277));
@@ -54,7 +62,7 @@ public class Map2DActivity extends AppCompatActivity {
         link.put(18,new Point(285,277));
         link.put(19,new Point(307,277));
         link.put(20,new Point(350,277));
-        link.put(21,new Point(24,274));
+        link.put(21,new Point(24,294));
         link.put(22,new Point(24,352));
         link.put(23,new Point(24,414));
         link.put(24,new Point(24,457));
@@ -81,26 +89,13 @@ public class Map2DActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2_d);
 
-        Rooms rooms = new Rooms();
-        List<Rooms> roomsList=rooms.buildRoom();
-        String[] Rooms = new String[55];
-        Rooms[0]="Destination...";
-        Rooms[1]="Aucune";
-        Rooms[2]="Visite guidée";
-        int i=3;
-        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
-        {
-            Rooms r = it.next();
-            Rooms[i]=r.getName();
-            i++;
-        }
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
+        this.roomsList=Building.getINSTANCE().getRoomsList();
 
         Spinner list = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,global.createRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         this.seek=(Button)findViewById(R.id.go);
         this.seek.setOnClickListener(new View.OnClickListener() {
@@ -140,16 +135,23 @@ public class Map2DActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //TextView textView=findViewById(R.id.destination);
+        //textView.setText("Vous vous dirigez vers : "+global.getRoom());
 
-        this.maj();
+        Maps map = new Maps();
+        //textView=findViewById(R.id.testMap);
+        //textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
+
+
+        this.maj((map.getPathFromTo(11,global.getRoom())));
 
     }
 
-    public void maj(){
+    public void maj(LinkedList m){
         ImageView im= (ImageView) findViewById( R.id.Map2D);
         Paint mPaint = new Paint();
         mPaint.setDither(true);
-        mPaint.setColor(0xFFFFFF00);
+        mPaint.setColor(getResources().getColor(R.color.color_Blue));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -158,19 +160,29 @@ public class Map2DActivity extends AppCompatActivity {
         Point mPoint = new Point();
 
 
-        Bitmap bm=  BitmapFactory.decodeResource(getResources(),R.drawable.map_blanche);
+        Bitmap bm=  BitmapFactory.decodeResource(getResources(),R.drawable.map_noir);
         bm=bm.copy(bm.getConfig(),true);
         Canvas c=new Canvas(bm);
         im.draw(c);
+        Iterator i=m.iterator();
+        Graph.Vertex n;
+        Graph.Vertex t;
+        n=(Graph.Vertex)i.next();
+        while(i.hasNext()){
+            t=(Graph.Vertex)i.next();
+            System.out.println("||"+Integer.parseInt(n.getId()));
+            System.out.println(t.getId() + "||");
 
-
+            c.drawLine(((Point)this.link.get(Integer.parseInt(n.getId()))).x,((Point)this.link.get(Integer.parseInt(n.getId()))).y,((Point)this.link.get(Integer.parseInt(t.getId()))).x,((Point)this.link.get(Integer.parseInt(t.getId()))).y,mPaint);
+            n=t.clone();
+        }
 
         //bm.setPixel(10,10, Color.red(1));
 
-        c.drawLine(((Point)this.link.get(2)).x,((Point)this.link.get(2)).y,((Point)this.link.get(12)).x,((Point)this.link.get(12)).y,mPaint);
-        for (int i = 3;i<35;i++){
+        /*c.drawLine(((Point)this.link.get(2)).x,((Point)this.link.get(2)).y,((Point)this.link.get(12)).x,((Point)this.link.get(12)).y,mPaint);
+        for (int j = 3;j<35;j++){
             c.drawLine(((Point)this.link.get(2)).x,((Point)this.link.get(2)).y,((Point)this.link.get(i)).x,((Point)this.link.get(i)).y,mPaint);
-        }
+        }*/
 
         im.setImageBitmap(bm);
 

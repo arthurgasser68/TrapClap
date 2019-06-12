@@ -70,6 +70,11 @@ public class Graph {
             return name;
         }
 
+        @Override
+        public Vertex clone()  {
+            Vertex v=new Vertex(this.getId(),this.getName());
+            return v;
+        }
     }
 
     public class Edge  {

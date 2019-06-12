@@ -4,20 +4,20 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
 import android.widget.Toast;
 
-import com.google.ar.core.Anchor;
 import com.google.ar.core.AugmentedImage;
 
 import com.google.ar.core.Config;
@@ -25,16 +25,14 @@ import com.google.ar.core.Frame;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
-import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Scene;
-import com.google.ar.sceneform.rendering.ModelRenderable;
 
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
+import mainModel.Building;
 import mainModel.QrCode;
 import mainModel.QrCodes;
 
@@ -46,9 +44,10 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
 
     private static final String TAG = QrMainActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    QrCodes qrCodes;
+    public static QrCodes qrCodes=null;
     public CustomArFragment arFragment;
     private Button seek;
+    private List<Rooms> roomsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,29 +58,16 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
             return;
         }
 
+        this.roomsList= Building.getINSTANCE().getRoomsList();
+
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
-
-        Rooms rooms = new Rooms();
-        List<Rooms> roomsList=rooms.buildRoom();
-        String[] Rooms = new String[55];
-        Rooms[0]="Destination...";
-        Rooms[1]="Aucune";
-        Rooms[2]="Visite guidée";
-        int i=3;
-        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
-        {
-            Rooms r = it.next();
-            Rooms[i]=r.getName();
-            i++;
-        }
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         Spinner list = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,global.createRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         this.seek=(Button)findViewById(R.id.go);
         this.seek.setOnClickListener(new View.OnClickListener() {
@@ -111,8 +97,6 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
                 }
             }
         });
-
-
     }
 
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
@@ -190,49 +174,27 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
         qrCodes.add(new QrCode("vestiaire",BitmapFactory.decodeResource(getResources(),R.drawable.vestiaire),48));
         qrCodes.add(new QrCode("weber", BitmapFactory.decodeResource(getResources(),R.drawable.weber),49));
         qrCodes.add(new QrCode("weisser",BitmapFactory.decodeResource(getResources(),R.drawable.weisser),50));
-        config.setAugmentedImageDatabase(qrCodes.getQrCodes());
-
     }
-
 
     @Override
     public void onUpdate(FrameTime frameTime) {
-
 
         Frame frame = arFragment.getArSceneView().getArFrame();
         for (Plane plane : frame.getUpdatedTrackables(Plane.class)) {
             if (plane.getTrackingState() == TrackingState.TRACKING) {
                 arFragment.getPlaneDiscoveryController().hide();
-
             }
         }
         Collection<AugmentedImage> images = frame.getUpdatedTrackables(AugmentedImage.class);
         for (AugmentedImage augmentedImage : images) {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                switch (augmentedImage.getName()){
-                    case "ambs":
-                        Anchor anchor = augmentedImage.createAnchor(augmentedImage.getCenterPose());
-                        createModel(anchor,getString(R.string.model1));
-                }
-
-
-
+                GlobalActivity global = (GlobalActivity) getApplicationContext();
+                global.setRoomId(Integer.parseInt(augmentedImage.getName()));
+                Intent intent= new Intent(getApplicationContext(), InformationActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
-
     }
 
-
-    private void createModel(Anchor anchor, String model) {
-        ModelRenderable.builder()
-                .setSource(this, Uri.parse(getString(R.string.model1)))
-                .build()
-                .thenAccept(modelRenderable -> placeModel(modelRenderable, anchor));
-    }
-
-    private void placeModel(ModelRenderable modelRenderable, Anchor anchor) {
-        AnchorNode anchorNode = new AnchorNode(anchor);
-        anchorNode.setRenderable(modelRenderable);
-        arFragment.getArSceneView().getScene().addChild(anchorNode);
-    }
 }

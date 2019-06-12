@@ -4,6 +4,7 @@
     package="pack.clap">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!--
  This tag indicates that this application requires ARCore.  This results in the application
          only being visible in the Google Play Store on devices that support ARCore.
@@ -20,8 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Map2DActivity" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-        <activity android:name=".SplashScreenActivity" android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".InformationActivity" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".Map2DActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +40,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:usesCleartextTraffic="false"
-            tools:ignore="GoogleAppIndexingWarning"></activity>
+            tools:ignore="GoogleAppIndexingWarning" />
         <!--
  This tag indicates that this application requires ARCore. This results in the
             application only being visible in the Google Play Store on devices that support
@@ -50,9 +56,11 @@
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="locked"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
-        <activity android:name="pack.clap.QrMainActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".QrMainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <meta-data android:name="com.google.android.ar.API_KEY" android:value="AIzaSyDMOhDDc8-BtMPwC3iNyCZXHzkQf56mKXM"/>
     </application>
 
 </manifest>
