@@ -117,7 +117,7 @@ public class Map2DActivity extends AppCompatActivity {
                         if(index==2) global.setRoom("Visite guidée"); //Code visite guidée
                     }
                 }
-                if(index!=0&&index!=1)
+                if(index>1)
                 {
                     Intent intent= new Intent(getApplicationContext(), Map2DActivity.class);
                     startActivity(intent);
@@ -141,10 +141,7 @@ public class Map2DActivity extends AppCompatActivity {
         Maps map = new Maps();
         //textView=findViewById(R.id.testMap);
         //textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
-
-
         this.maj((map.getPathFromTo(1,global.getRoom())));
-
     }
 
     public void maj(LinkedList m){
