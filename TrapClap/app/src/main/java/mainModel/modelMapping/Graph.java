@@ -70,6 +70,11 @@ public class Graph {
             return name;
         }
 
+        @Override
+        public Vertex clone()  {
+            Vertex v=new Vertex(this.getId(),this.getName());
+            return v;
+        }
     }
 
     public class Edge  {
@@ -150,7 +155,7 @@ public class Graph {
         nodes = new ArrayList<Vertex>();
         edges = new ArrayList<Edge>();
         for (int i = 0; i < 40; i++) {
-            Vertex location = new Vertex("Node_" + (i+1), "Node_" + (i+1));
+            Vertex location = new Vertex("" + (i+1), "" + (i+1));
             nodes.add(location);
         }
 

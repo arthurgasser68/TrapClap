@@ -49,7 +49,8 @@ public class Lessons {
         public String toString()
         {
             StringBuilder tmp = new StringBuilder();
-            tmp.append(this.hour1+"-"+this.hour2+"h : "+this.lesson+"\n");
+            //tmp.append(this.hour1+"-"+this.hour2+"h : "+this.lesson+"\n");
+            tmp.append(this.lesson);
             return tmp.toString();
         }
 }

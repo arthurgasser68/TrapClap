@@ -83,8 +83,6 @@ public class Maps {
 
     public static void main (String[] args){
         Maps m=new Maps();
-
-
         System.out.println( m.getPathFromTo(11,"Weber")  );
     }
 
@@ -95,7 +93,7 @@ public class Maps {
     }
     public LinkedList<Graph.Vertex> getPathFromTo(int start,String lieu){
         this.g.execute(this.g.getNodes().get(start-1));
-        return this.g.addVertex( this.g.getPath(this.g.getNodes().get(this.translate.get(lieu) -1)),start, lieu ) ;
+        return this.g.addVertex( this.g.getPath(this.g.getNodes().get(this.translate.get(lieu) -1)),this.translate.get(lieu), lieu ) ;
 
     }
 

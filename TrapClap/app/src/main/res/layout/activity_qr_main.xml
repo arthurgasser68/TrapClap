@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="pack.clap.QrMainActivity">
+    tools:context="pack.clap.QrMainActivity"
+    android:background="@color/color_Blue">
 
     <LinearLayout
         android:id="@+id/topbar"
@@ -22,6 +23,7 @@
             android:id="@+id/go"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_boder"
             android:text="GO"/>
 
     </LinearLayout>

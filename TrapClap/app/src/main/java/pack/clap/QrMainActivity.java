@@ -15,10 +15,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
-import com.google.ar.core.Anchor;
 import com.google.ar.core.AugmentedImage;
 
 import com.google.ar.core.Config;
@@ -26,16 +25,12 @@ import com.google.ar.core.Frame;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
-import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Scene;
-import com.google.ar.sceneform.rendering.ModelRenderable;
 
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import mainModel.Building;
 import mainModel.QrCode;
@@ -63,28 +58,16 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
             return;
         }
 
+        this.roomsList= Building.getINSTANCE().getRoomsList();
+
         this.arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         arFragment.getArSceneView().getScene().addOnUpdateListener(this);
-
-        this.roomsList= Building.getINSTANCE().getRoomsList();
-        String[] Rooms = new String[54];
-        Rooms[0]="Destination...";
-        Rooms[1]="Aucune";
-        Rooms[2]="Visite guidée";
-        int i=3;
-        for(Iterator<Rooms> it = roomsList.iterator(); it.hasNext();)
-        {
-            Rooms r = it.next();
-            Rooms[i]=r.getName();
-            i++;
-        }
+        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         Spinner list = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Rooms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,global.createRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
-
-        GlobalActivity global = (GlobalActivity) getApplicationContext();
 
         this.seek=(Button)findViewById(R.id.go);
         this.seek.setOnClickListener(new View.OnClickListener() {
