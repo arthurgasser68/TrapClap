@@ -23,6 +23,7 @@ import com.google.ar.core.codelab.cloudanchor.trapclaphelper.ResolveDialogFragme
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.SnackbarHelper;
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.StorageManager;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mainModel.Building;
+import pack.clap.Map2DActivity;
 import pack.clap.R;
 
 import static java.lang.Integer.parseInt;
@@ -42,7 +44,7 @@ import static java.lang.Integer.parseInt;
  *
  * <p>This is where the AR Session and the Cloud Anchors are managed.
  */
-public class AnchorLibraries extends ArFragment {
+public class AnchorLibraries extends ArFragment implements Scene.OnUpdateListener {
 
     private Scene arScene;
     private AnchorNode anchorNode;
@@ -53,7 +55,7 @@ public class AnchorLibraries extends ArFragment {
     private FirebaseManager firebaseManager;
     private Button resolve_button;
     private Button get_position;
-
+    private int  lastupdate=0;
     private Button create_path;
     private HashMap <Anchor,String> anchorMap = new HashMap<>();
     private Anchor currentAnchor=null;
@@ -105,6 +107,9 @@ public class AnchorLibraries extends ArFragment {
         arScene = getArSceneView().getScene();
         arScene.addOnUpdateListener(frameTime -> cloudAnchorManger.onUpdate());
         setOnTapArPlaneListener((hitResult, plane, motionEvent) -> onArPlaneTap(hitResult));
+        this.getArSceneView().getScene().addOnUpdateListener(this);
+
+
 
         return rootView;
     }
@@ -292,6 +297,30 @@ public class AnchorLibraries extends ArFragment {
         config.setCloudAnchorMode(CloudAnchorMode.ENABLED);
         return config;
     }
+
+    @Override
+    public void onUpdate(FrameTime frameTime)
+    {
+
+    if(lastupdate>500)
+    {
+        onGetPositionButtonPressed();
+        Building.getINSTANCE().setIdDebut(currentShortCode);
+
+
+
+        lastupdate=0;
+    }else
+    {
+        lastupdate++;
+    }
+
+
+    }
+
+
+
+
 
 
 
