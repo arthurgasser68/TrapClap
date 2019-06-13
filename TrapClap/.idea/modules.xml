@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TrapClap.iml" filepath="$PROJECT_DIR$/TrapClap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trapclaphelper/trapclaphelper.iml" filepath="$PROJECT_DIR$/trapclaphelper/trapclaphelper.iml" />
     </modules>
   </component>
 </project>
