@@ -27,6 +27,7 @@ import com.google.ar.core.Config;
 import com.google.ar.core.Config.CloudAnchorMode;
 import com.google.ar.core.Session;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import pack.clap.R;
@@ -121,7 +122,7 @@ public class AnchorLibraries extends ArFragment {
 
     }
 
-    private void onGetPositionButtonPressed() {
+    public void onGetPositionButtonPressed() {
 
         if (!anchorMap.isEmpty())
         { for (Map.Entry<Anchor,String> entry : anchorMap.entrySet()) {
@@ -246,6 +247,25 @@ public class AnchorLibraries extends ArFragment {
         Config config = super.getSessionConfiguration(session);
         config.setCloudAnchorMode(CloudAnchorMode.ENABLED);
         return config;
+    }
+
+    public Anchor getCurrentAnchor()
+    {
+        return this.currentAnchor;
+    }
+
+    public int getAnchorId(Anchor anchor)
+    {
+        for(Map.Entry<Anchor,String> entry : anchorMap.entrySet())
+        {
+            if(currentAnchor.equals(entry.getKey())) return parseInt(entry.getValue());
+        }
+        return 0;
+    }
+
+    public HashMap<Anchor,String> getLibrary()
+    {
+        return this.anchorMap;
     }
 
 
