@@ -77,13 +77,24 @@ public class Planning {
 
     public boolean isDispo(Planning plan, int hour)
     {
-        boolean dispo=true;
+        boolean dispo=false;
         for(Iterator<Lessons> it = this.lessonsList.iterator(); it.hasNext();)
         {
             Lessons lesson=it.next();
+<<<<<<< HEAD
             if((hour>=lesson.getHour1()&&hour<=lesson.getHour2())||(hour<8||hour>18))
             {
                 if(lesson.getLesson()=="Libre"||lesson.getLesson()=="Pause"||lesson.getLesson()=="Fermé"||lesson.getLesson()=="Absent") dispo=false;
+=======
+            if(hour<8||hour>18) dispo=false;
+            else
+            {
+                if((hour>=lesson.getHour1()&&hour<=lesson.getHour2()))
+                {
+                    if(lesson.getLesson()=="Libre"||lesson.getLesson()=="Pause"||lesson.getLesson()=="Ouvert"||lesson.getLesson()=="Présent") dispo=true;
+                    else dispo=false;
+                }
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
             }
         }
         return dispo;

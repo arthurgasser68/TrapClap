@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         if(index==2) global.setRoom("Visite guidée"); //Code visite guidée
                     }
                 }
-                if(index!=0&&index!=1)
+                if(index>1)
                 {
                     Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
@@ -78,20 +78,21 @@ public class MainActivity extends AppCompatActivity {
 
         /*Test Map*/
 
-        TextView textView=findViewById(R.id.destination);
-        textView.setText("Vous vous dirigez vers : "+global.getRoom());
+        /*Maps map = new Maps();
+        TextView textView=findViewById(R.id.testMap);
+        if(global.getRoom()!="Visite guidée") textView.setText(map.getPathFromTo(11,global.getRoom()).toString());*/
 
-        Maps map = new Maps();
-        textView=findViewById(R.id.testMap);
-        textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment frag = fm.findFragmentById(R.id.fragment_container);
         if (frag == null) {
             frag = new AnchorLibraries();
             fm.beginTransaction().add(R.id.fragment_container, frag).commit();
+
             ((AnchorLibraries) frag).setDestination(global.getRoom());
         }
         ((AnchorLibraries) frag).setDestination(global.getRoom());
+
 
     }
 }

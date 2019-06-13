@@ -77,7 +77,7 @@ public class Rooms {
         listRoom.add(new Rooms("E31",new Planning(new Lessons().buildLesson("Web","Compatabilité","Java","Allemand")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
         listRoom.add(new Rooms("E32",new Planning(new Lessons().buildLesson("Physique","Réseaux","Web","CMAGS")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
         listRoom.add(new Rooms("E33",new Planning(new Lessons().buildLesson("Anglais","Projet","ICG","Java")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants. Cette application a été majoritairement créé dans cette salle"),null,"Lessons"));
-        listRoom.add(new Rooms("E34",new Planning(new Lessons().buildLesson("ICG","Libre","Réseaux","Anglais")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
+        listRoom.add(new Rooms("E34",new Planning(new Lessons().buildLesson("ICG","Libre","Réseaux","Libre")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
         listRoom.add(new Rooms("E35",new Planning(new Lessons().buildLesson("Java","Libre","Libre","Allemand")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
         listRoom.add(new Rooms("E36",new Planning(new Lessons().buildLesson("BI","Anglais","Libre","CMAGS")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));
         listRoom.add(new Rooms("E37",new Planning(new Lessons().buildLesson("Libre","SGBD","Libre","BI")),new Informations("Salle de TD pouvant accueillir environ 20 étudiants"),null,"Lessons"));

@@ -89,7 +89,7 @@ public class QrMainActivity extends AppCompatActivity implements Scene.OnUpdateL
                         if(index==2) global.setRoom("Visite guidée"); //Code visite guidée
                     }
                 }
-                if(index!=0&&index!=1)
+                if(index>1)
                 {
                     Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
