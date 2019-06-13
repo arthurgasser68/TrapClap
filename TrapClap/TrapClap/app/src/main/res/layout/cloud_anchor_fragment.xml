@@ -44,7 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
-            android:text="Library"
+
+            android:text="PATH"
+
+
             android:id="@+id/create_lib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

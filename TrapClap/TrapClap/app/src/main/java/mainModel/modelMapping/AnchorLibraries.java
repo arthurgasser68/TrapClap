@@ -23,14 +23,18 @@ import com.google.ar.core.codelab.cloudanchor.trapclaphelper.ResolveDialogFragme
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.SnackbarHelper;
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.StorageManager;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
+import mainModel.Building;
+import pack.clap.Map2DActivity;
 import pack.clap.R;
 
 import static java.lang.Integer.parseInt;
@@ -40,7 +44,7 @@ import static java.lang.Integer.parseInt;
  *
  * <p>This is where the AR Session and the Cloud Anchors are managed.
  */
-public class AnchorLibraries extends ArFragment {
+public class AnchorLibraries extends ArFragment implements Scene.OnUpdateListener {
 
     private Scene arScene;
     private AnchorNode anchorNode;
@@ -51,9 +55,18 @@ public class AnchorLibraries extends ArFragment {
     private FirebaseManager firebaseManager;
     private Button resolve_button;
     private Button get_position;
-    private Button create_lib;
+    private int  lastupdate=0;
+    private Button create_path;
     private HashMap <Anchor,String> anchorMap = new HashMap<>();
     private Anchor currentAnchor=null;
+    private Maps map =new Maps();
+    private String destination;
+    private int currentShortCode;
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -86,12 +99,17 @@ public class AnchorLibraries extends ArFragment {
         get_position = rootView.findViewById(R.id.get_position);
         get_position.setOnClickListener(v -> onGetPositionButtonPressed());
 
-        create_lib=rootView.findViewById(R.id.create_lib);
-        create_lib.setOnClickListener(v -> onCreatelibrary());
+
+        create_path=rootView.findViewById(R.id.create_lib);
+        create_path.setOnClickListener(v -> onShowpathpressed());
+
 
         arScene = getArSceneView().getScene();
         arScene.addOnUpdateListener(frameTime -> cloudAnchorManger.onUpdate());
         setOnTapArPlaneListener((hitResult, plane, motionEvent) -> onArPlaneTap(hitResult));
+        this.getArSceneView().getScene().addOnUpdateListener(this);
+
+
 
         return rootView;
     }
@@ -99,11 +117,29 @@ public class AnchorLibraries extends ArFragment {
     private synchronized  void onCreatelibrary()
     {
         int i;
-        for (i=1;i<=10;i++)
+
+        for (i=1;i<=6;i++)
+
         {
             onSearch(i);
         }
     }
+
+    private synchronized void onShowpathpressed()
+    {
+        if(currentAnchor!=null)
+        {
+            Building.getINSTANCE().setIdDebut(currentShortCode);
+            snackbarHelper.showMessage(getActivity(),map.getPathFromTo(currentShortCode,destination).toString());
+        }else
+        {
+            snackbarHelper.showMessage(getActivity(),"No position foudn unable to create a path");
+        }
+
+
+    }
+
+
 
 
     private synchronized void onSearch(int shortCode)
@@ -123,20 +159,25 @@ public class AnchorLibraries extends ArFragment {
 
     }
 
+
     private void onGetPositionButtonPressed() {
 
-        if (!anchorMap.isEmpty())
-        { for (Map.Entry<Anchor,String> entry : anchorMap.entrySet()) {
+        if (anchorMap.isEmpty())
+        {
+            onCreatelibrary();
+        }
+
+         for (Map.Entry<Anchor,String> entry : anchorMap.entrySet()) {
+
             if(currentAnchor == null)
             {
                 onShortCodeEntered(parseInt(entry.getValue()));
             }
         }
             snackbarHelper.showMessage(getActivity(), "your Position was not found ");
-        }else
-        {
-            snackbarHelper.showMessage(getActivity(), "No library found ");
-        }
+
+
+
 
     }
 
@@ -156,6 +197,9 @@ public class AnchorLibraries extends ArFragment {
         // Clear the anchor from the scene.
         cloudAnchorManger.clearListeners();
         resolve_button.setEnabled(true);
+
+        currentAnchor=null;
+
         setNewAnchor(null);
     }
 
@@ -211,6 +255,10 @@ public class AnchorLibraries extends ArFragment {
             snackbarHelper.showMessage(getActivity(), "You are in " + shortCode);
             setNewAnchor(anchor);
             currentAnchor=anchor;
+
+            currentShortCode=shortCode;
+            Building.getINSTANCE().setIdDebut(currentShortCode);
+
             return;
 
         }
@@ -249,6 +297,31 @@ public class AnchorLibraries extends ArFragment {
         config.setCloudAnchorMode(CloudAnchorMode.ENABLED);
         return config;
     }
+
+    @Override
+    public void onUpdate(FrameTime frameTime)
+    {
+
+    if(lastupdate>500)
+    {
+        onGetPositionButtonPressed();
+        Building.getINSTANCE().setIdDebut(currentShortCode);
+
+
+
+        lastupdate=0;
+    }else
+    {
+        lastupdate++;
+    }
+
+
+    }
+
+
+
+
+
 
 
 }
