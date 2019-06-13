@@ -17,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.ar.sceneform.FrameTime;
+import com.google.ar.sceneform.Scene;
+import com.google.ar.sceneform.ux.ArFragment;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,6 +40,7 @@ public class Map2DActivity extends AppCompatActivity {
     private Map<Integer,Point> link;
 
     private List<Rooms> roomsList;
+    private int  lastupdate=0;
 
 
     @Override
@@ -90,6 +95,8 @@ public class Map2DActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2_d);
 
+
+
         GlobalActivity global = (GlobalActivity) getApplicationContext();
         this.roomsList=Building.getINSTANCE().getRoomsList();
 
@@ -99,6 +106,7 @@ public class Map2DActivity extends AppCompatActivity {
         list.setAdapter(adapter);
 
         this.seek=(Button)findViewById(R.id.go);
+
         this.seek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +151,7 @@ public class Map2DActivity extends AppCompatActivity {
         //textView=findViewById(R.id.testMap);
         //textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
         int start;
-        if(Building.getINSTANCE().getIdFin() != 0){
+        if(Building.getINSTANCE().getIdDebut() != 0){
             start=Building.getINSTANCE().getIdDebut();
         }
         else{
@@ -152,7 +160,14 @@ public class Map2DActivity extends AppCompatActivity {
 
         if(global.getRoom()!="Visite guidée") this.maj((map.getPathFromTo(1,global.getRoom())));
         else this.maj((map.getPathFromTo(1,30)));
+
+
+
+
+
+
     }
+
 
     public void maj(LinkedList m){
         ImageView im= (ImageView) findViewById( R.id.Map2D);
