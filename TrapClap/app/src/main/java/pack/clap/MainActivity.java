@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /*Test Map*/
-        Maps map = new Maps();
+        /*Maps map = new Maps();
         TextView textView=findViewById(R.id.testMap);
-        if(global.getRoom()!="Visite guidée") textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
+        if(global.getRoom()!="Visite guidée") textView.setText(map.getPathFromTo(11,global.getRoom()).toString());*/
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment frag = fm.findFragmentById(R.id.fragment_container);

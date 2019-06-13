@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.ar.core.Anchor;
+import com.google.ar.core.Config;
+import com.google.ar.core.Config.CloudAnchorMode;
 import com.google.ar.core.HitResult;
+import com.google.ar.core.Session;
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.CloudAnchorManager;
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.FirebaseManager;
 import com.google.ar.core.codelab.cloudanchor.trapclaphelper.ResolveDialogFragment;
@@ -23,9 +27,7 @@ import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
-import com.google.ar.core.Config;
-import com.google.ar.core.Config.CloudAnchorMode;
-import com.google.ar.core.Session;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

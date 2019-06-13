@@ -38,14 +38,14 @@ public class Maps {
         this.translate.put("Bureau chercheur_MIAM_1",19);
         this.translate.put("Bureau chercheur_MIAM_2",12);
         this.translate.put("Bureau chercheur_MIAM_3",12);
-        this.translate.put("Cafe",0);
+        this.translate.put("Cafe",8);
         this.translate.put("Dupuis",16);
         this.translate.put("E30",7);
         this.translate.put("E31",8);
         this.translate.put("E32",11);
         this.translate.put("E33",21);
         this.translate.put("E34",22);
-        this.translate.put("E35",0);
+        this.translate.put("E35",23);
         this.translate.put("E36",24);
         this.translate.put("E37",26);
         this.translate.put("E37-bis",28);
@@ -68,7 +68,7 @@ public class Maps {
         this.translate.put("Salle_Réunion",1);
         this.translate.put("Secrétariat_Miage",23);
         this.translate.put("Studer",35);
-        this.translate.put("Tableau_sectoriel",0);
+        this.translate.put("Tableau_sectoriel",32);
         this.translate.put("Tableau_sectoriel_ts9",32);
         this.translate.put("Thiry",35);
         this.translate.put("Toilettes_femmes",10);
@@ -93,7 +93,7 @@ public class Maps {
     }
     public LinkedList<Graph.Vertex> getPathFromTo(int start,String lieu){
         this.g.execute(this.g.getNodes().get(start-1));
-        return this.g.addVertex( this.g.getPath(this.g.getNodes().get(this.translate.get(lieu) -1)),start, lieu ) ;
+        return this.g.addVertex( this.g.getPath(this.g.getNodes().get(this.translate.get(lieu) -1)),this.translate.get(lieu), lieu ) ;
 
     }
 
