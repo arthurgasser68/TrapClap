@@ -1,16 +1,8 @@
 package mainModel;
 
-import com.google.ar.core.Anchor;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import mainModel.modelMapping.AnchorLibraries;
-import mainModel.modelMapping.Maps;
-import mainModel.modelRessources.Object3D;
 import mainModel.modelRooms.Rooms;
-import pack.clap.QrMainActivity;
 
 public class Building {
 
@@ -28,15 +20,13 @@ public class Building {
     }
 
 
-    public Object3D getObject3D() {
-        return obj;
-    }
+
 
     /** Instance unique non préinitialisée */
     private static Building INSTANCE = null;
 
     private TrapClap tc;
-    private Object3D obj;
+
     private List<Rooms> roomsList;
     private QrCodes qrCodes;
     private int idDebut;
@@ -61,8 +51,8 @@ public class Building {
     private Building()
     {
         this.idDebut=0;
-        this.tc=new TrapClap();
-        this.obj=new Object3D();
+        //this.tc=new TrapClap();
+
         // creer la maps ici à l'aide d'une fonction dans la classe Maps
         Rooms rooms = new Rooms();
         this.roomsList=rooms.buildRoom();
@@ -77,13 +67,6 @@ public class Building {
         this.tc = tc;
     }
 
-    public Object3D getObj() {
-        return obj;
-    }
-
-    public void setObj(Object3D obj) {
-        this.obj = obj;
-    }
 
     public List<Rooms> getRoomsList() {
         return roomsList;
