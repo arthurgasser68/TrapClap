@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                Building.getINSTANCE().setIdFin(new Maps().getTranslate().get(global.getRoom()));
             }
         });
 
