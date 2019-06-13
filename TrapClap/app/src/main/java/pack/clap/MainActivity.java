@@ -77,16 +77,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /*Test Map*/
+
         /*Maps map = new Maps();
         TextView textView=findViewById(R.id.testMap);
         if(global.getRoom()!="Visite guidée") textView.setText(map.getPathFromTo(11,global.getRoom()).toString());*/
+
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment frag = fm.findFragmentById(R.id.fragment_container);
         if (frag == null) {
             frag = new AnchorLibraries();
             fm.beginTransaction().add(R.id.fragment_container, frag).commit();
+
+            ((AnchorLibraries) frag).setDestination(global.getRoom());
         }
+        ((AnchorLibraries) frag).setDestination(global.getRoom());
+
 
     }
 }

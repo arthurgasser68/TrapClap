@@ -40,7 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <!--<TextView
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
             android:id="@+id/testMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +51,11 @@
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="91dp"
             android:layout_gravity="center"
+<<<<<<< HEAD
+            android:layout_marginTop="50dp"/>
+=======
             android:layout_marginTop="10dp"/>-->
+
 
     </LinearLayout>
 

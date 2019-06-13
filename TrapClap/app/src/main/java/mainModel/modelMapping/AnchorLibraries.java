@@ -29,7 +29,10 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.HashMap;
+<<<<<<< HEAD
+=======
 import java.util.Iterator;
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 import java.util.Map;
 
 import pack.clap.R;
@@ -52,9 +55,22 @@ public class AnchorLibraries extends ArFragment {
     private FirebaseManager firebaseManager;
     private Button resolve_button;
     private Button get_position;
+<<<<<<< HEAD
+    private Button create_path;
+    private HashMap <Anchor,String> anchorMap = new HashMap<>();
+    private Anchor currentAnchor=null;
+    private Maps map =new Maps();
+    private String destination;
+    private int currentShortCode;
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+=======
     private Button create_lib;
     private HashMap <Anchor,String> anchorMap = new HashMap<>();
     private Anchor currentAnchor=null;
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -87,8 +103,13 @@ public class AnchorLibraries extends ArFragment {
         get_position = rootView.findViewById(R.id.get_position);
         get_position.setOnClickListener(v -> onGetPositionButtonPressed());
 
+<<<<<<< HEAD
+        create_path=rootView.findViewById(R.id.create_lib);
+        create_path.setOnClickListener(v -> onShowpathpressed());
+=======
         create_lib=rootView.findViewById(R.id.create_lib);
         create_lib.setOnClickListener(v -> onCreatelibrary());
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 
         arScene = getArSceneView().getScene();
         arScene.addOnUpdateListener(frameTime -> cloudAnchorManger.onUpdate());
@@ -100,12 +121,34 @@ public class AnchorLibraries extends ArFragment {
     private synchronized  void onCreatelibrary()
     {
         int i;
+<<<<<<< HEAD
+        for (i=1;i<=6;i++)
+=======
         for (i=1;i<=10;i++)
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
         {
             onSearch(i);
         }
     }
 
+<<<<<<< HEAD
+    private synchronized void onShowpathpressed()
+    {
+        if(currentAnchor!=null)
+        {
+            snackbarHelper.showMessage(getActivity(),map.getPathFromTo(currentShortCode,destination).toString());
+        }else
+        {
+            snackbarHelper.showMessage(getActivity(),"No position foudn unable to create a path");
+        }
+
+
+    }
+
+
+
+=======
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 
     private synchronized void onSearch(int shortCode)
     {
@@ -124,20 +167,35 @@ public class AnchorLibraries extends ArFragment {
 
     }
 
+<<<<<<< HEAD
+    private void onGetPositionButtonPressed() {
+
+        if (anchorMap.isEmpty())
+        {
+            onCreatelibrary();
+        }
+
+         for (Map.Entry<Anchor,String> entry : anchorMap.entrySet()) {
+=======
     public void onGetPositionButtonPressed() {
 
         if (!anchorMap.isEmpty())
         { for (Map.Entry<Anchor,String> entry : anchorMap.entrySet()) {
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
             if(currentAnchor == null)
             {
                 onShortCodeEntered(parseInt(entry.getValue()));
             }
         }
             snackbarHelper.showMessage(getActivity(), "your Position was not found ");
+<<<<<<< HEAD
+
+=======
         }else
         {
             snackbarHelper.showMessage(getActivity(), "No library found ");
         }
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 
     }
 
@@ -157,6 +215,10 @@ public class AnchorLibraries extends ArFragment {
         // Clear the anchor from the scene.
         cloudAnchorManger.clearListeners();
         resolve_button.setEnabled(true);
+<<<<<<< HEAD
+        currentAnchor=null;
+=======
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
         setNewAnchor(null);
     }
 
@@ -212,6 +274,10 @@ public class AnchorLibraries extends ArFragment {
             snackbarHelper.showMessage(getActivity(), "You are in " + shortCode);
             setNewAnchor(anchor);
             currentAnchor=anchor;
+<<<<<<< HEAD
+            currentShortCode=shortCode;
+=======
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
             return;
 
         }
@@ -250,6 +316,8 @@ public class AnchorLibraries extends ArFragment {
         config.setCloudAnchorMode(CloudAnchorMode.ENABLED);
         return config;
     }
+<<<<<<< HEAD
+=======
 
     public Anchor getCurrentAnchor()
     {
@@ -269,6 +337,7 @@ public class AnchorLibraries extends ArFragment {
     {
         return this.anchorMap;
     }
+>>>>>>> 79091d0e0bc30066c84c6441de1e58d98f30a63b
 
 
 }
