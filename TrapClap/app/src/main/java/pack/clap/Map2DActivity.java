@@ -142,6 +142,13 @@ public class Map2DActivity extends AppCompatActivity {
         Maps map = new Maps();
         //textView=findViewById(R.id.testMap);
         //textView.setText(map.getPathFromTo(11,global.getRoom()).toString());
+        int start;
+        if(Building.getINSTANCE().getIdFin() != 0){
+            start=Building.getINSTANCE().getIdDebut();
+        }
+        else{
+            start=1;
+        }
 
         if(global.getRoom()!="Visite guidée") this.maj((map.getPathFromTo(1,global.getRoom())));
         else this.maj((map.getPathFromTo(1,30)));

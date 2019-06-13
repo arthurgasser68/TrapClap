@@ -39,9 +39,28 @@ public class Building {
     private Object3D obj;
     private List<Rooms> roomsList;
     private QrCodes qrCodes;
+    private int idDebut;
+    private int idFin;
+
+    public int getIdDebut() {
+        return idDebut;
+    }
+
+    public void setIdDebut(int idDebut) {
+        this.idDebut = idDebut;
+    }
+
+    public int getIdFin() {
+        return idFin;
+    }
+
+    public void setIdFin(int idFin) {
+        this.idFin = idFin;
+    }
 
     private Building()
     {
+        this.idDebut=0;
         this.tc=new TrapClap();
         this.obj=new Object3D();
         // creer la maps ici à l'aide d'une fonction dans la classe Maps

@@ -86,7 +86,15 @@ public class Maps {
         System.out.println( m.getPathFromTo(11,"Weber")  );
     }
 
-    public LinkedList<Graph.Vertex> getPathFromTo(int start,int target){
+    public Map<String, Integer> getTranslate() {
+        return translate;
+    }
+
+    public void setTranslate(Map<String, Integer> translate) {
+        this.translate = translate;
+    }
+
+    public LinkedList<Graph.Vertex> getPathFromTo(int start, int target){
         this.g.execute(this.g.getNodes().get(start-1));
         return this.g.getPath(this.g.getNodes().get(target -1));
 

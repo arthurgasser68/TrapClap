@@ -32,6 +32,7 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import mainModel.Building;
 import pack.clap.R;
 
 import static java.lang.Integer.parseInt;
@@ -123,6 +124,7 @@ public class AnchorLibraries extends ArFragment {
     {
         if(currentAnchor!=null)
         {
+            Building.getINSTANCE().setIdDebut(currentShortCode);
             snackbarHelper.showMessage(getActivity(),map.getPathFromTo(currentShortCode,destination).toString());
         }else
         {
@@ -250,6 +252,7 @@ public class AnchorLibraries extends ArFragment {
             currentAnchor=anchor;
 
             currentShortCode=shortCode;
+            Building.getINSTANCE().setIdDebut(currentShortCode);
 
             return;
 
